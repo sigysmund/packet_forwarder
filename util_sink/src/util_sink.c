@@ -40,6 +40,7 @@ Maintainer: Sylvain Miermont
 /* -------------------------------------------------------------------------- */
 /* --- PRIVATE MACROS ------------------------------------------------------- */
 
+#define DATABUF_SIZE    4096
 #define ARRAY_SIZE(a)	(sizeof(a) / sizeof((a)[0]))
 #define STRINGIFY(x)	#x
 #define STR(x)			STRINGIFY(x)
@@ -47,6 +48,17 @@ Maintainer: Sylvain Miermont
 
 /* -------------------------------------------------------------------------- */
 /* --- MAIN FUNCTION -------------------------------------------------------- */
+
+void print_line_buf(uint8_t *buf, uint8_t size)
+{
+    uint8_t i;
+    for(i = 0; i < size; i++)
+    {
+        if(i > 0) printf(":");
+        printf("%02X", buf[i]);
+    }
+    printf("\n");
+}
 
 int main(int argc, char **argv)
 {
@@ -63,7 +75,7 @@ int main(int argc, char **argv)
 	/* variables for receiving packets */
 	struct sockaddr_storage dist_addr;
 	socklen_t addr_len = sizeof dist_addr;
-	uint8_t databuf[4096];
+	uint8_t databuf[DATABUF_SIZE];
 	int byte_nb;
 	
 	/* check if port number was passed as parameter */
@@ -121,5 +133,6 @@ int main(int argc, char **argv)
 		}
 		getnameinfo((struct sockaddr *)&dist_addr, addr_len, host_name, sizeof host_name, port_name, sizeof port_name, NI_NUMERICHOST);
 		printf("Got packet from host %s port %s, %i bytes long\n", host_name, port_name, byte_nb);
+		print_line_buf(databuf, byte_nb);
 	}
 }
