@@ -7,7 +7,7 @@
   (C)2013 Semtech-Cycleo
 
 Description:
-	Network sink, receives UDP packets on certain ports and discards them
+    Network sink, receives UDP packets on certain ports and discards them
 
 License: Revised BSD License, see LICENSE.TXT file include in the project
 Maintainer: Sylvain Miermont
@@ -19,23 +19,23 @@ Maintainer: Sylvain Miermont
 
 /* fix an issue between POSIX and C99 */
 #if __STDC_VERSION__ >= 199901L
-	#define _XOPEN_SOURCE 600
+    #define _XOPEN_SOURCE 600
 #else
-	#define _XOPEN_SOURCE 500
+    #define _XOPEN_SOURCE 500
 #endif
 
-#include <stdint.h>		/* C99 types */
-#include <stdio.h>		/* printf, fprintf, sprintf, fopen, fputs */
+#include <stdint.h>     /* C99 types */
+#include <stdio.h>      /* printf, fprintf, sprintf, fopen, fputs */
 
-#include <string.h>		/* memset */
-#include <time.h>		/* time, clock_gettime, strftime, gmtime, clock_nanosleep*/
-#include <stdlib.h>		/* atoi, exit */
-#include <errno.h>		/* error messages */
+#include <string.h>     /* memset */
+#include <time.h>       /* time, clock_gettime, strftime, gmtime, clock_nanosleep*/
+#include <stdlib.h>     /* atoi, exit */
+#include <errno.h>      /* error messages */
 
 #include <sys/socket.h> /* socket specific definitions */
 #include <netinet/in.h> /* INET constants and stuff */
 #include <arpa/inet.h>  /* IP address conversion stuff */
-#include <netdb.h>		/* gai_strerror */
+#include <netdb.h>      /* gai_strerror */
 
 /* -------------------------------------------------------------------------- */
 /* --- PRIVATE MACROS ------------------------------------------------------- */

@@ -44,13 +44,13 @@ Maintainer: Sylvain Miermont
 /* -------------------------------------------------------------------------- */
 /* --- PRIVATE MACROS ------------------------------------------------------- */
 
-#define ARRAY_SIZE(a)    (sizeof(a) / sizeof((a)[0]))
+#define ARRAY_SIZE(a)   (sizeof(a) / sizeof((a)[0]))
 #define MSG(args...)    fprintf(stderr, args) /* message that is destined to the user */
 
 /* -------------------------------------------------------------------------- */
 /* --- PRIVATE CONSTANTS ---------------------------------------------------- */
 
-#define PROTOCOL_VERSION    1
+#define PROTOCOL_VERSION 2
 
 #define PKT_PUSH_DATA   0
 #define PKT_PUSH_ACK    1
@@ -415,8 +415,10 @@ int main(int argc, char **argv)
     }
 
     /* Preamble size */
-    memcpy((void *)(databuf + buff_index), (void *)",\"prea\":8", 9);
-    buff_index += 9;
+    if (strcmp(mod, "LORA") == 0) {
+        memcpy((void *)(databuf + buff_index), (void *)",\"prea\":8", 9);
+        buff_index += 9;
+    }
 
     /* payload size */
     i = snprintf((char *)(databuf + buff_index), 12, ",\"size\":%i", payload_size);
